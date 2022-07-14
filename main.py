@@ -14,15 +14,15 @@ while True:
         if len(m)==len(a):
             if m=="file" or m=="help":
                 print("出错：代码不完整")
-                continue
+                break
             elif m=="list":
                 with open ("list.txt","r") as f:
                     data=f.read()
                     print (data)
-                    continue
+                    break
             else:
                 print("错误，无此功能")
-                continue
+                break
         elif word==" ":
             if m=="file ":
                 a=a.lstrip(m)
@@ -30,7 +30,7 @@ while True:
                     n+=i
                     if len(n)==len(a):
                         print("出错：代码不完整")
-                        continue
+                        break
                     elif i==" ":
                         if n=="add ":
                             m=""
@@ -39,7 +39,7 @@ while True:
                                 m+=mu
                                 if len(m)==len(a):
                                     print("出错：代码不完整")
-                                    continue
+                                    break
                                 elif mu==" ":
                                     if m=="sort ":
                                         a=a.lstrip(m)
@@ -49,8 +49,8 @@ while True:
                                                 try:
                                                     os.mkdir("./sorts/"+a+"/")
                                                     print("创建了新的文件夹")
-                                                    continue
+                                                    break
                                                 except:
                                                     print("文件夹生成失败,请查看是否路径有误或同名文件夹已存在")
-                                                    continue
+                                                    break
                                                        
