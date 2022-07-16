@@ -1,6 +1,7 @@
 chcp 65001
 cd /d %~dp0
 attrib +s +H .\main.py
+attrib +s +H .\help.txt
 echo 监测运行环境
 @for /f "tokens=2" %%h in ('python -h ^| findstr /C:"usage:"') do ^
 set PYVER2=%%h
