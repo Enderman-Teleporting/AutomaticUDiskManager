@@ -117,7 +117,7 @@ def delete_file(path):
 def delete_directionary(name):
     with open("directionary.json","r+") as fileagain:
         rec=re.compile(name)  
-        lines=[line for line in fileagain.readlines() if rec.search(line) is None] #遍历读取f中的每一行
+        lines=[line for line in fileagain.readlines() if rec.search(line) is None]
         fileagain.seek(0)
         fileagain.truncate(0)
         fileagain.writelines(lines)
