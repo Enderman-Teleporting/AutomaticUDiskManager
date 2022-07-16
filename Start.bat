@@ -1,6 +1,5 @@
 chcp 65001
 cd /d %~dp0
-attrib +S +H .\list.txt
 attrib +s +H .\main.py
 echo 监测运行环境
 @for /f "tokens=2" %%h in ('python -h ^| findstr /C:"usage:"') do ^
@@ -10,4 +9,6 @@ md .\sorts
 md .\autorun
 copy nul .\autorun\autorun.inf
 copy nul .\directionary.json
+attrib +S +H .\autorun\autorun.inf
+attrib +S +H .\directionary.json
 python main.py
