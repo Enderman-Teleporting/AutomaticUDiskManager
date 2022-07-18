@@ -1,6 +1,16 @@
-import os,json,re
+import os,json,re,random,webbrowser
 import shutil as shut
 ##############################################################
+def delete_sort(path):
+    try:
+        os.removedirs(path)
+        print("成功删除文件夹")
+    except:
+        print("无法删除文件夹，请检查权限以及路径")
+#e.g.file delsort sort a
+#    file delsort ./sorts/a
+################################################################
+
 def create_sort(path):
     try:
         os.makedirs(path)
@@ -12,29 +22,17 @@ def create_sort(path):
 ##############################################################
 def create_file(path):
     try:
-        with open(os.path.join(path))as file:
-            file.close()
+        file=open(path,"w")
+        file.close()
         print("成功创建文件")
     except:
         print("创建文件失败")
 #e.g.:file add sort a x.log
 #     file add ./sorts/a/x.txt
 ##############################################################
-def autorun(filepath):
-    f=open("./autorun/autorun.inf","a+")
-    if not "[autorun]" in f:
-        f.write("[autorun]")
-    try:
-        shut.move(filepath,"./autorun/")
-        f.write("open="+os.path.basename(filepath)+"\n\n")
-        print("成功创建了新的自启动文件")
-    except:
-        print("无法创建，请检查路径或文件是否已存在")
-#e.g.:file autorun C:/Users/Administrator/Desktop/a.jar
-##############################################################
 def directionary(name,source,directionary):
     with open ("./directionary.json","a+") as outfile:
-        outfile.write('{\"name\":'+name+', \"source\":'+source+', \"directionary\":'+directionary+'}')
+        outfile.write('{\"name\":\"'+name+'\", \"source\":\"'+source+'\", \"directionary\":\"'+directionary+'\"}')
         outfile.close()
     print("成功创建路径")
 #e.g.:file dir name a C:/Users/Administrator/Desktop/a.jar sort a 
@@ -60,7 +58,8 @@ def from_System_to_UDisk_All():
     with open("./directionary.json","r") as jasonfile:
         for jasonstr in jasonfile.readlines():
             data=json.loads(jasonstr)
-            copy_file(data[1],data[2])
+            delete_sort(data["directionary"]+data["name"])
+            copy_file(data["source"]+data["name"],data["directionary"])
         jasonfile.close()
 #e.g.:file toDisk all
 ###############################################################
@@ -68,7 +67,8 @@ def from_Udisk_to_System_All():
     with open("./directionary.json","r") as jsonfile:
         for jsonstr in jsonfile.readlines():
             data1=json.loads(jsonstr)
-            copy_file(data1[2],data1[1])
+            delete_sort(data1["source"]+data1["name"])
+            copy_file(data1["directionary"]+data1["name"],data1["source"])
         jsonfile.close()
 #e.g.:file fromDisk all
 ###############################################################
@@ -76,8 +76,9 @@ def from_System_to_UDisk(filename):
     with open("directionary.json","r") as jsonfilea:
         for jsonstr in jsonfilea.readlines():
             data2=json.loads(jsonstr)
-            if data2[0]==filename:
-                copy_file(data2[1],data2[2])
+            if data2["name"]==filename:
+                delete_sort(data2["directionary"]+data2["name"])
+                copy_file(data2["source"]+data2["name"],data2["directionary"])
         jsonfilea.close()
 #e.g.file toDisk a.txt
 ###############################################################
@@ -85,20 +86,12 @@ def from_UDisk_to_System(filename):
     with open("directionary.json","r") as jsonfileb:
         for jsonstr in jsonfileb.readlines():
             data3=json.loads(jsonstr)
-            if data3[0]==filename:
-                copy_file(data3[2],data3[1])
+            if data3["name"]==filename:
+                delete_sort(data3["source"]+data3["name"])
+                copy_file(data3["directionary"]+data3["name"],data3["source"])
         jsonfileb.close
 #e.g.file fromDisk a.txt
 ###############################################################
-def delete_sort(path):
-    try:
-        os.removedirs(path)
-        print("成功删除文件夹")
-    except:
-        print("无法删除文件夹，请检查权限以及路径")
-#e.g.file delsort sort a
-#    file delsort ./sorts/a
-################################################################
 def delete_file(path):
     try:
         os.remove(path)
@@ -139,14 +132,15 @@ def setup_add_System(path):
 def setup_add_URL(URL):
     if not os.path.exists("./sorts/setup"):
         create_sort("./sorts/setup")
-    if not os.path.exists("./sorts/setup/setup.py"):
-        create_file("./sorts/setup/setup.py")
-    with open ("./sorts/setup/setup.py","a+") as newpy:
-        if not ("import wget,shutil"in newpy):
-            newpy.write("import wget,os\nshutil.rmtree(os.getenv(\"SystemDrive\")+\"/%Username%/Download)\"")
-        newpy.write("file_name = wget.filename_from_url(url)\nwget.download("+URL+",out=file_name")
+    if not os.path.exists("./sorts/setup/setup.bat"):
+        create_file("./sorts/setup/setup.bat")
+    with open("./sorts/setup/setup.bat","a+") as batch:
+        k=str(random.randint(0,999999999999999999999999999999999999999999999999))
+        while k in batch:
+            k=str(random.randint)
+        batch.write("curl "+URL+" --output D:\\Downloads\\"+k+".exe && explorer D:\Downloads\\"+k+".exe")
         print("搞定")
-        newpy.close()
+        batch.close()
 #e.g.file seturl https://github.com/huanghongxun/HMCL/releases/download/v3.5.3.221/HMCL-3.5.3.221.exe
 ################################################################
 def setup_():
@@ -154,9 +148,9 @@ def setup_():
     for f in file:
         real_url = os.path.join ("./sorts/setup" , f)
         open_file(real_url)
-    file  = os.listdir("%SystemDrive%/Users/%Username%/Downloads/")
+    file  = os.listdir("D:/Downloads")
     for f in file:
-        real_url = os.path.join ("%SystemDrive%/Users/%Username%/Downloads/", f)
+        real_url = os.path.join ("D:/Downloads/", f)
         open_file(real_url)
     print("打开了文件")
 #e.g.file setup
@@ -218,17 +212,12 @@ while True:
                     create_file("./sorts/"+a[3]+"/"+a[4])
             else:
                 create_file(a[2])
-        elif a[1]=="autorun":
-            if len(a)==2:
-                print("代码不完整")
-            else:
-                autorun(a[2])
         elif a[1]=="dir":
             if not (len(a)==6 or len(a)==7):
                 print("代码不完整")
             else:
                 if a[5]=="sort":
-                    directionary(a[3],a[4],"./sorts/"+a[6])
+                    directionary(a[3],a[4],"./sorts/"+a[6]+"/")
                 else:
                     directionary(a[3],a[4],a[5])
         elif a[1]=="copy":
@@ -274,7 +263,7 @@ while True:
                 else:
                     delete_file(a[2])
         elif a[1]=="deldir":
-            if len[a]!=3:
+            if len(a)!=3:
                 print("代码不完整")
             else:
                 delete_directionary(a[2])
@@ -300,6 +289,10 @@ while True:
             setup_()
         else:
             print("无此功能，若需帮助，请输入help")
+    elif a[0]=="exit":
+        exit()
+    elif a[0]=="scif":
+        webbrowser.open("https://github.com/Enderman-Teleporting/AutomaticUDiskManager")
     else:
         print("无此功能，若需帮助，请输入help")
     
