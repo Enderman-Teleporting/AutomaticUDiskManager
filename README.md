@@ -18,7 +18,7 @@ This repo is for a U-Disk automatic batching program. It will be better to put t
 This repo is specially made for dudes who love typing and hate keeping opening and moving and copying files from or to the disk.\n
 For the commands, you may go to Wiki of the repo.\n
 The shortcomings of this repo:\n
-    It would probably report by mistake that the command is wrong. It is because of the "Permission Denied" error of the pyfile.\n
+It would probably report by mistake that the command is wrong. It is because of the "Permission Denied" error of the pyfile.\n
 
-    The "open" command will report "路径错误"(wrong path) if one file have no certain (for example more than one) related app. It will be better to uses the command to open folders or EXE files.
+The "open" command will report "路径错误"(wrong path) if one file have no certain (for example more than one) related app. It will be better to uses the command to open folders or EXE files.
 
