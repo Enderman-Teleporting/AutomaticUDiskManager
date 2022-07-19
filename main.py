@@ -183,7 +183,7 @@ while True:
                 except:
                     print("无法找到目录，请检查路径")
     elif a[0]=="help":
-        with open("./help.txt","r")as help_file:
+        with open("./help.txt","r",encoding="UTF-8")as help_file:
             file_content=help_file.read()
             print(file_content)
             help_file.close()
