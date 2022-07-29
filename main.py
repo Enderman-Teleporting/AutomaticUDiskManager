@@ -31,7 +31,7 @@ def create_file(path):
 #     file add ./sorts/a/x.txt
 ##############################################################
 def directionary(name,source,directionary):
-    with open ("./directionary.json","a+") as outfile:
+    with open (".\\directionary.json","a+") as outfile:
         outfile.write('{\"name\":\"'+name+'\", \"source\":\"'+source+'\", \"directionary\":\"'+directionary+'\"}')
         outfile.close()
     print("成功创建路径")
@@ -55,7 +55,7 @@ def cut_file(from_,to_):
 #e.g.:file cut ./sorts/a ./sorts/b
 ###############################################################
 def from_System_to_UDisk_All():
-    with open("./directionary.json","r") as jasonfile:
+    with open(".\\directionary.json","r") as jasonfile:
         for jasonstr in jasonfile.readlines():
             data=json.loads(jasonstr)
             delete_sort(data["directionary"]+data["name"])
@@ -121,20 +121,20 @@ def open_file(path):
 ################################################################
 def setup_add_System(path):
     try:
-        if not os.path.exists("./sorts/setup"):
-            create_sort("./sorts/setup")
-        shut.move(path,"./sorts/setup/")
+        if not os.path.exists(".\\sorts\\setup"):
+            create_sort(".\\sorts\\setup")
+        shut.move(path,".\\sorts\\setup/")
         print("成功加入文件")
     except:
         print("错误，请检查文件路径")
 #e.g.file uploadpkg C:\Users\Administrator\a.exe
 ################################################################
 def setup_add_URL(URL):
-    if not os.path.exists("./sorts/setup"):
-        create_sort("./sorts/setup")
-    if not os.path.exists("./sorts/setup/setup.bat"):
-        create_file("./sorts/setup/setup.bat")
-    with open("./sorts/setup/setup.bat","a+") as batch:
+    if not os.path.exists(".\\sorts\\setup"):
+        create_sort(".\\sorts\\setup")
+    if not os.path.exists(".\\sorts\\setup\\setup.bat"):
+        create_file(".\\sorts\\setup\\setup.bat")
+    with open(".\\sorts\\setup\\setup.bat","a+") as batch:
         k=str(random.randint(0,999999999999999999999999999999999999999999999999))
         while k in batch:
             k=str(random.randint)
@@ -144,13 +144,13 @@ def setup_add_URL(URL):
 #e.g.file seturl https://github.com/huanghongxun/HMCL/releases/download/v3.5.3.221/HMCL-3.5.3.221.exe
 ################################################################
 def setup_():
-    file  = os.listdir("./sorts/setup")
+    file  = os.listdir(".\\sorts\\setup")
     for f in file:
-        real_url = os.path.join ("./sorts/setup" , f)
+        real_url = os.path.join (".\\sorts\\setup" , f)
         open_file(real_url)
     file  = os.listdir("D:/Downloads")
     for f in file:
-        real_url = os.path.join ("D:/Downloads/", f)
+        real_url = os.path.join ("D:\\Downloads\\", f)
         open_file(real_url)
     print("打开了文件")
 #e.g.file setup
@@ -170,20 +170,20 @@ while True:
     a=a.split()
     if a[0]=="list":
         if len(a)==1:
-            list_file("./")
+            list_file(".\\")
         else:
             if a[1]=="sort":
                 if len[a]==2:
                     print("代码不完整")
                 else:
-                    list_file("./sorts/"+a[2])
+                    list_file(".\\sorts\\"+a[2])
             else:
                 try:
                     list_file(a[1])
                 except:
                     print("无法找到目录，请检查路径")
     elif a[0]=="help":
-        with open("./help.txt","r",encoding="UTF-8")as help_file:
+        with open(".\\help.txt","r",encoding="UTF-8")as help_file:
             file_content=help_file.read()
             print(file_content)
             help_file.close()
@@ -199,7 +199,7 @@ while True:
                 if len(a)==3:
                     print("代码不完整")
                 else:
-                    create_sort("./sorts/"+a[3])
+                    create_sort(".\\sorts\\"+a[3])
             else:
                 create_sort(a[2])
         elif a[1]=="add":
@@ -209,7 +209,7 @@ while True:
                 if len(a)==3 or len(a)==4:
                     print("代码不完整")
                 else:
-                    create_file("./sorts/"+a[3]+"/"+a[4])
+                    create_file(".\\sorts\\"+a[3]+"\\"+a[4])
             else:
                 create_file(a[2])
         elif a[1]=="dir":
@@ -217,7 +217,7 @@ while True:
                 print("代码不完整")
             else:
                 if a[5]=="sort":
-                    directionary(a[3],a[4],"./sorts/"+a[6]+"/")
+                    directionary(a[3],a[4],".\\sorts\\"+a[6]+"\\")
                 else:
                     directionary(a[3],a[4],a[5])
         elif a[1]=="copy":
@@ -251,7 +251,7 @@ while True:
                 print("代码不完整")
             else:
                 if a[2]=="sort":
-                    delete_sort("./sorts/"+a[3])
+                    delete_sort(".\\sorts\\"+a[3])
                 else:
                     delete_sort(a[2])
         elif a[1]=="del":
@@ -259,7 +259,7 @@ while True:
                 print("代码不完整")
             else:
                 if a[2]=="sort":
-                    delete_file("./sorts/"+a[3]+"/"+a[4])
+                    delete_file(".\\sorts\\"+a[3]+"\\"+a[4])
                 else:
                     delete_file(a[2])
         elif a[1]=="deldir":
@@ -272,7 +272,7 @@ while True:
                 print("代码不完整")
             else:
                 if a[2]=="sort":
-                    open_file("./sorts/"+a[3]+"/"+a[4])
+                    open_file(".\\sorts\\"+a[3]+"\\"+a[4])
                 else:
                     open_file(a[2])
         elif a[1]=="uploadpkg":
