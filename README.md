@@ -8,6 +8,7 @@
 该仓库的局限性：  
     容易出现因访问权限问题而产生的误报。  
     open指令在程序在有特定的（比如多个）关联运行程序时同样会报“路径错误”,使用该指令打开文件夹或EXE文件更为保险。  
+另外注意:Windows系统中(你肯定在用这个,不然你怎么跑exe)请最好使用"\\"作为路径中的分隔符  
 ______________________________________________________________________________________________
 English|英语  
 This repo is mainly written in Chinese but is still friendly to English users.  
@@ -19,4 +20,5 @@ For the commands, you may go to Wiki of the repo.
 The shortcomings of this repo:  
 It would probably report by mistake that the command is wrong. It is because of the "Permission Denied" error of the pyfile.  
 The "open" command will report "路径错误"(wrong path) if one file have no certain (for example more than one) related app. It will be better to uses the command to open folders or EXE files.  
+Attention: If you're using Windows OS (You must be using that, otherwise how can you run exe file), you'd better use "\\" instead of "\" or "/" between paths.  
 
