@@ -7,9 +7,8 @@
 具体运行时指令请前往Wiki  
 该仓库的局限性：  
     容易出现因访问权限问题而产生的误报。  
-    
     open指令在程序在有特定的（比如多个）关联运行程序时同样会报“路径错误”,使用该指令打开文件夹或EXE文件更为保险。  
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+______________________________________________________________________________________________
 English|英语  
 This repo is mainly written in Chinese but is still friendly to English users.  
 This repo is the first public repo of the owner. If there is any problems, please give me some instructions.  

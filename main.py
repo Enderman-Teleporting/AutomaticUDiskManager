@@ -138,7 +138,7 @@ def setup_add_URL(URL):
         k=str(random.randint(0,999999999999999999999999999999999999999999999999))
         while k in batch:
             k=str(random.randint)
-        batch.write("curl "+URL+" --output D:\\Downloads\\"+k+".exe && explorer D:\Downloads\\"+k+".exe")
+        batch.write("curl "+URL+" --output D:\\Downloads\\"+k+".exe && explorer D:\\Downloads\\"+k+".exe")
         print("搞定")
         batch.close()
 #e.g.file seturl https://github.com/huanghongxun/HMCL/releases/download/v3.5.3.221/HMCL-3.5.3.221.exe
