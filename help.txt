@@ -1,5 +1,5 @@
 语法|Grammar:    [file/list/help/scif/exit] +options
-
+****上面的file/list/help/scif/exit是前缀，表示要执行的命令类型，file代表要操作文件,list是列出文件***
 sort:在sorts文件夹下的类别|the categories under the "sorts" folder
 1.list
     (1)list 列出你U盘中的文件及文件夹|lists the files and folders in your Udisk
