@@ -10,4 +10,4 @@ md .\sorts
 md D:\Downloads
 copy nul .\directionary.json
 attrib +S +H .\directionary.json
-python main.py
+python Disc.py
