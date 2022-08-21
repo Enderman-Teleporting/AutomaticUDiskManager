@@ -5,7 +5,12 @@ import shutil as shut
 ##############################################################
 def delete_sort(path):
     try:
-        os.removedirs(path)
+        for root, dirs, files in os.walk(path, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        shut.rmtree(path)
         print("成功删除文件夹")
     except:
         print("无法删除文件夹，请检查权限以及路径")
@@ -28,11 +33,8 @@ def create_sort(path):
 ##############################################################
 def copy_sort(source,directory):
     try:
-        for root, dirs, files in os.walk(source):
-            for file in files:
-                src_file = os.path.join(root, file)
-                shutil.copy(src_file, directory)
-                print("成功复制文件夹")
+        shut.copytree(source,directory)
+        print("成功复制文件夹")
     except:
         print("复制失败")
 #e.g.:file copysort C:\ab .\sort\a
@@ -58,7 +60,7 @@ def create_file(path):
 def directionary(name, source, directionary):
     with open(".\\directionary.json", "a+") as outfile:
         outfile.write(
-            '{\"name\":\"' + name + '\", \"source\":\"' + source + '\", \"directionary\":\"' + directionary + '\"}')
+            '{\"name\":\"' + name + '\", \"source\":\"' + source + '\", \"directionary\":\"' + directionary + '\"}'+"\n")
         outfile.close()
     print("成功创建路径")
 
@@ -90,8 +92,8 @@ def from_System_to_UDisk_All():
     with open(".\\directionary.json", "r") as jasonfile:
         for jasonstr in jasonfile.readlines():
             data = json.loads(jasonstr)
-            delete_sort(data["directionary"]+data["name"])
-            copy_sort(data["source"]+data["name"], data["directionary"])
+            delete_sort(data["directionary"])
+            copy_sort(data["source"], data["directionary"])
         jasonfile.close()
 
 
@@ -101,8 +103,8 @@ def from_Udisk_to_System_All():
     with open("./directionary.json", "r") as jsonfile:
         for jsonstr in jsonfile.readlines():
             data1 = json.loads(jsonstr)
-            delete_sort(data1["source"] + data1["name"])
-            copy_file(data1["directionary"] + data1["name"], data1["source"])
+            delete_sort(data1["source"])
+            copy_sort(data1["directionary"], data1["source"])
         jsonfile.close()
 
 
@@ -113,8 +115,8 @@ def from_System_to_UDisk(filename):
         for jsonstr in jsonfilea.readlines():
             data2 = json.loads(jsonstr)
             if data2["name"] == filename:
-                delete_sort(data2["directionary"] + data2["name"])
-                copy_file(data2["source"] + data2["name"], data2["directionary"])
+                delete_sort(data2["directionary"])
+                copy_sort(data2["source"], data2["directionary"])
         jsonfilea.close()
 
 
@@ -125,8 +127,8 @@ def from_UDisk_to_System(filename):
         for jsonstr in jsonfileb.readlines():
             data3 = json.loads(jsonstr)
             if data3["name"] == filename:
-                delete_sort(data3["source"] + data3["name"])
-                copy_file(data3["directionary"] + data3["name"], data3["source"])
+                delete_sort(data3["source"])
+                copy_sort(data3["directionary"], data3["source"])
         jsonfileb.close
 
 
@@ -144,15 +146,25 @@ def delete_file(path):
 #    file del ./sorts/a/a.txt
 ################################################################
 def delete_directionary(name):
-    with open("directionary.json", "r+") as fileagain:
-        rec = re.compile(name)
-        lines = [line for line in fileagain.readlines() if rec.search(line) is None]
-        fileagain.seek(0)
-        fileagain.truncate(0)
-        fileagain.writelines(lines)
+    lineList = []
+    matchPattern = re.compile(name)
+    file = open('.\\directionary.json', 'r',)
+    while 1:
+        line = file.readline()
+        if not line:
+            break
+        elif matchPattern.search(line):
+            pass
+        else:
+            lineList.append(line)
+    file.close()
+    file = open(".\\directionary.json", 'w',)
+    for i in lineList:
+        file.write(i)
 
 
-# e.g.file deldir a.txt
+
+# e.g.file deldir a
 ################################################################
 def open_file(path):
     try:
@@ -194,9 +206,9 @@ def setup_add_URL(URL):
 # e.g.file seturl https://github.com/huanghongxun/HMCL/releases/download/v3.5.3.221/HMCL-3.5.3.221.exe
 ################################################################
 def setup_():
-    file = os.listdir(".\\sorts\\setup")
+    file = os.listdir(".\\sorts\\setup\\")
     for f in file:
-        real_url = os.path.join(".\\sorts\\setup", f)
+        real_url = os.path.join(".\\sorts\\setup\\", f)
         open_file(real_url)
     file = os.listdir("D:/Downloads")
     for f in file:
@@ -219,7 +231,6 @@ def list_file(path):
 #    list ./sorts
 ################################################################
 while True:
-    print("----------------------------请输入接下来的操作-------------------------------")
     a = input("")
     a = a.strip()
     a = a.split()
@@ -272,7 +283,7 @@ while True:
                 print("代码不完整")
             else:
                 copy_sort(a[2],a[3])
-        elif a[2]=="cutsort":
+        elif a[1]=="cutsort":
             if len(a)!=4:
                 print("代码不完整")
             else:
@@ -360,4 +371,3 @@ while True:
         webbrowser.open("https://github.com/Enderman-Teleporting/AutomaticUDiskManager")
     else:
         print("无此功能，若需帮助，请输入help")
-    print("--------------------------------------------------------------------------")
