@@ -26,6 +26,22 @@ def create_sort(path):
 # e.g.:file addsort sort a
 #     file addsort ./sorts/a/b
 ##############################################################
+def copy_sort(source,directory):
+    try:
+        for root, dirs, files in os.walk(source):
+            for file in files:
+                src_file = os.path.join(root, file)
+                shutil.copy(src_file, directory)
+                print("成功复制文件夹")
+    except:
+        print("复制失败")
+#e.g.:file copysort C:\ab .\sort\a
+##############################################################
+def cut_sort(source,dir__):
+    copy_sort(source,dir__)
+    delete_sort(source)
+#e.g.:file cutsort C:\ab .\sort\a
+##############################################################
 def create_file(path):
     try:
         file = open(path, "w")
@@ -47,8 +63,8 @@ def directionary(name, source, directionary):
     print("成功创建路径")
 
 
-# e.g.:file dir name a C:/Users/Administrator/Desktop/a.jar sort a
-#     file dir name a C:/Users/Administrator/Desktop/a.jar ./sorts/a/ 
+# e.g.:file dir name a C:/Users/Administrator/Desktop/c/ sort a
+#     file dir name a C:/Users/Administrator/Desktop/c/ ./sorts/a/
 ##############################################################
 def copy_file(from_, to_):
     try:
@@ -74,8 +90,8 @@ def from_System_to_UDisk_All():
     with open(".\\directionary.json", "r") as jasonfile:
         for jasonstr in jasonfile.readlines():
             data = json.loads(jasonstr)
-            delete_sort(data["directionary"] + data["name"])
-            copy_file(data["source"] + data["name"], data["directionary"])
+            delete_sort(data["directionary"]+data["name"])
+            copy_sort(data["source"]+data["name"], data["directionary"])
         jasonfile.close()
 
 
@@ -102,7 +118,7 @@ def from_System_to_UDisk(filename):
         jsonfilea.close()
 
 
-# e.g.file toDisk a.txt
+# e.g.file toDisk Github
 ###############################################################
 def from_UDisk_to_System(filename):
     with open("directionary.json", "r") as jsonfileb:
@@ -114,7 +130,7 @@ def from_UDisk_to_System(filename):
         jsonfileb.close
 
 
-# e.g.file fromDisk a.txt
+# e.g.file fromDisk Github
 ###############################################################
 def delete_file(path):
     try:
@@ -222,7 +238,7 @@ while True:
                 except:
                     print("无法找到目录，请检查路径")
     elif a[0] == "help":
-        with open(".\\help.txt", "r", encoding="UTF-8")as help_file:
+        with open(".\\help.txt", "r")as help_file:
             file_content = help_file.read()
             print(file_content)
             help_file.close()
@@ -251,6 +267,16 @@ while True:
                     create_file(".\\sorts\\" + a[3] + "\\" + a[4])
             else:
                 create_file(a[2])
+        elif a[1]=="copysort":
+            if len(a)!=4:
+                print("代码不完整")
+            else:
+                copy_sort(a[2],a[3])
+        elif a[2]=="cutsort":
+            if len(a)!=4:
+                print("代码不完整")
+            else:
+                cut_sort(a[2],a[3])
         elif a[1] == "dir":
             if not (len(a) == 6 or len(a) == 7):
                 print("代码不完整")

@@ -1,5 +1,5 @@
 语法|Grammar:    [file/list/help/scif/exit] +options
-****上面的file/list/help/scif/exit是前缀，表示要执行的命令类型，file代表要操作文件,list是列出文件***
+***上面的file/list/help/scif/exit是前缀，表示要执行的命令类型，file代表要操作文件,list是列出文件***
 sort:在sorts文件夹下的类别|the categories under the "sorts" folder
 1.list
     (1)list 列出你U盘中的文件及文件夹|lists the files and folders in your Udisk
@@ -17,17 +17,17 @@ sort:在sorts文件夹下的类别|the categories under the "sorts" folder
        创建文件|create file
     (3)dir name [name] [source] [target:sort [sort]]
        dir name [name] [source] [target path]
-       设定路径。name为文件名(必须为文件夹)，source为系统中的文件夹，target为U盘中的类或其他文件夹（路径末尾带斜杠）|set directions-name is the filename(this file haves to be a folder), source is the folder in your system, target is the sort or other folders in your Udisk(remember to include a "/" after paths)
+       设定路径。name为文件名(必须为文件夹)，source为系统中所要复制文件夹所在的路径，target为U盘中的类或其他文件夹(一般为.\\sorts\\)（路径末尾带\\）|set directions-name is the filename(this file haves to be a folder), source is the folder in your system, target is the sort or other folders in your Udisk(remember to include a "\\" after paths)
     (4)copy [source:path] [target:path]
        复制粘贴|copy and paste
     (5)cut [source:path] [target:path]
        剪切粘贴|cut and paste
     (6)toDisk [name]
        toDisk all
-       根据你所设定的路径将文件从系统复制入U盘|copy files according to the settings in dir command
+       根据你所设定的路径将文件夹从系统复制入U盘|copy folders according to the settings in dir command
     (7)fromDisk [name]
        fromDisk all
-       根据你所设定的路径将文件从U盘复制入系统|copy files according to the settings in dir command
+       根据你所设定的路径将文件夹从U盘复制入系统|copy folders according to the settings in dir command
     (8)delsort sort [sort]
        delsort [path]
        删除类|delete sort
@@ -41,4 +41,6 @@ sort:在sorts文件夹下的类别|the categories under the "sorts" folder
     (12)seturl [url]
         在运行setup指令时同时从URL下载安装包|download installation package from URL while running setup command
     (13)setup   安装你提供的所有安装文件及URL|run all the installation pkgs and URLs
+    (14)copysort [source:path] [target:path] 复制粘贴文件夹|copy and paste folders
+    (15)cutsort [source:path] [target:path] 剪切粘贴文件夹|cut and paste folders
 5.exit  退出|exit
