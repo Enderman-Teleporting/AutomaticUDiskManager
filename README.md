@@ -9,6 +9,7 @@
     容易出现因访问权限问题而产生的误报(已知体现在删除路径(deldir)无法访问directionary.json)。  
 建议使用open打开文件夹或EXE文件。  
 另外注意:Windows系统中(你肯定在用这个,不然你怎么跑exe)请最好使用"\"作为路径中的分隔符,而在dir方式中使用"\\"  
+卸载方式:将uninstall.bat拖入你的文件所在目录下,双击运行即可  
 ______________________________________________________________________________________________
 English|英语  
 This repo is mainly written in Chinese but is still friendly to English users.  
@@ -18,7 +19,8 @@ This repo is for a U-Disk automatic batching program. It will be better to put t
 This repo is specially made for dudes who love typing and hate keeping opening and moving and copying files from or to the disk.  
 For the commands, you may go to Wiki of the repo.  
 The shortcomings of this repo:  
-It would probably report by mistake that the command is wrong. It is because of the "Permission Denied" error of the pyfile.  
-The "open" command will report "路径错误"(wrong path) if one file have no certain (for example more than one) related app. It will be better to uses the command to open folders or EXE files.  
+    It would probably report by mistake that the command is wrong. It is because of the "Permission Denied" error of the pyfile.  
+It will be better to uses the command to open folders or EXE files.  
 Attention: If you're using Windows OS (You must be using that, otherwise how can you run exe file), you'd better use "\" instead of "\\" or "/" between paths. However, in "dir" command, you'd better use "\\"  
+Uninstall method: put uninstall.bat into the directory which your filed are currently in. Double click and finished.
 
